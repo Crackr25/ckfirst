@@ -1,0 +1,1 @@
+Izakahr<?php /**PATH C:\laragon\www\Pbook\resources\views/pages/about.blade.php ENDPATH**/ ?>

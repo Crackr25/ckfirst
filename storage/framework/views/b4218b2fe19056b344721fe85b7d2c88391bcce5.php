@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('content'); ?>
-<table>
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
     <thead>
         <tr>
           <th>Last Name</th>
@@ -11,6 +11,7 @@
            
         </tr>
     </thead>
+
     <tbody>
         <?php $__currentLoopData = $subcriber; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subcriber): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>

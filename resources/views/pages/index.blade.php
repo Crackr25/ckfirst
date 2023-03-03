@@ -95,7 +95,7 @@
                    
                 </tr>
             </thead>
-            <tbody>
+            <tbody>subscriberId
                 @foreach($subcriber as $item)
                 <tr data-id="{{ $item->ID }}">
                       <td>{{ $item->ID }}</td>
@@ -184,13 +184,17 @@
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-primary" id="addSubscriber">Add</button>
-                  <button type="button" class="btn btn-danger">Save</button>
-                  <button type="button" class="btn btn-success">Delete</button>
+                  <button type="button" class="btn btn-success" id="addNumber">Save</button>
+                  <button type="button" class="btn btn-danger">Delete</button>
               </div>
           </div>
       </div>
   </div>
   
+  @if(session('success'))
+  <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
     
   
 
@@ -200,9 +204,9 @@
 
     <div class="overlay"></div>
       <!-- Javascript -->
-      <script src="assets/js/jquery-1.11.1.min.js"></script>
-      <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-      <script src="assets/js/jquery.backstretch.min.js"></script>
+      {{-- <script src="assets/js/jquery-1.11.1.min.js"></script> --}}
+      {{-- <script src="assets/bootstrap/js/bootstrap.min.js"></script> --}}
+      {{-- <script src="assets/js/jquery.backstretch.min.js"></script> --}}
       <script src="{{ asset('Jquery/scripts.js') }}"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -256,11 +260,74 @@
     }
 });
 
+      var conts  = 0;
+
 
           
 
           $('#subscribersTable tbody').on('click', 'tr', function() {
             var subscriberId = $(this).find('td:first-child').text();
+            $.ajax({
+            url: "{{ route('get-number') }}",
+            type: "POST",
+            data: {
+                subscriber_id: subscriberId
+            },
+            dataType: "json",
+            success: function(data) {
+              var count = data
+              console.log(subscriberId)
+              if (count < 1){
+              $.ajax({
+              url: "{{ route('get-name') }}",
+              type: "POST",
+              data: {
+                  subscriber_id: subscriberId
+              },
+              dataType: "json",
+              success: function(data) {
+                console.log(data)
+                var modalBody = $('#myModal .modal-body');
+                modalBody.empty();
+                var name = data.LASTNAME + ', ' + data.FIRSTNAME + ' ' + data.MIDDLENAME;
+                var ID = data.ID;
+                var tableHtml = `
+    
+                <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
+            <span id="idNum">${ID}.</span> ${name}
+          </p>
+    
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Phone Number</th>
+            </tr>
+          </thead>
+        </tbody>
+          `;
+
+          modalBody.html(tableHtml);
+
+
+
+            // Build the provider and phone number HTML
+            var providerHtml = `<td>${subscriber.PROVIDER}</td>`;
+            var phoneHtml = `<td>${subscriber.PHONENO}</td>`;
+
+                
+                
+
+
+
+
+              }
+              
+            });
+              }
+            }
+            });
+            
          
            // console.log(subscriberId);
            $.ajax({
@@ -271,15 +338,15 @@
             },
             dataType: 'json',
             success: function(data) {
-            console.log(data)
+          
             var modalBody = $('#myModal .modal-body');
             modalBody.empty();
            // Get the first item from the array
             var subscriber = data[0];
 
 // Build the name string
-          var name = subscriber.LASTNAME + ', ' + subscriber.FIRSTNAME + ' ' + subscriber.MIDDLENAME;
-
+          var name = subscriber.LASTNAME + ', ' + subscriber.FIRSTNAME + ',' + subscriber.MIDDLENAME;
+          var ID = subscriber.ID;
           // Build the provider and phone number HTML
           var providerHtml = `<td>${subscriber.PROVIDER}</td>`;
           var phoneHtml = `<td>${subscriber.PHONENO}</td>`;
@@ -342,9 +409,9 @@
         //   PHONENO: ${data.PHONENO}
         // </p>`);
         var tableHtml = `
-        <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold ; color: black;">
-          ${name}
-        </p>
+        <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
+            <span id="idNum">${ID}.</span> ${name}
+          </p>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -380,11 +447,6 @@
                 // modalBody.append('<p>First Name: ' + data.FIRSTNAME + '</p>');
                 // modalBody.append('<p>Last Name: ' + data.LASTNAME + '</p>');
             },
-            error: function() {
-                alert('An error occurred while fetching subscribers data.');
-          
-                
-            }
         });
       });
 
@@ -393,7 +455,7 @@
         // Clear the modal body of any previous content
 
         // Add two text fields to the modal body for "Provider" and "Number"
-        $('#myModal .modal-body').append('<div class="form-group"><label for="provider">Provider:</label><input type="text" class="form-control" id="provider"></div><div class="form-group"><label for="number">Number:</label><input type="text" class="form-control" id="number"></div>');
+        $('#myModal .modal-body').append('<div class="form-group"><label for="provider">Provider:</label><input type="text" class="form-control" required id="provider"></div><div class="form-group"><label for="number">Number:</label><input type="text" class="form-control" id="number" required></div>');
         // Show the modal
         $('#myModal').modal('show');
     });
@@ -426,6 +488,38 @@
               
                 });   
                   });
+
+          const saveButton = document.getElementById("addNumber");
+          // add event listener to the button
+          saveButton.addEventListener("click", function() {
+            const provider = $('#provider').val();
+            const idNumElement = document.getElementById('idNum');
+            const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
+            const number = $('#number').val();
+            // console.log(typeof idNum);
+            // console.log(provider);
+            // console.log(number);
+            $.ajax({
+              url: '/save-number', // the URL of the server endpoint that will handle the request
+              method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
+              data: { // the data to send to the server
+                  idNum: idNum,
+                  provider: provider,
+                  number: number
+              },
+              success: function(response) {
+                  console.log('Data saved successfully:', response);
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error saving data:', error);
+              
+              }
+            });
+
+        //    $('#myModal').modal('hide');
+});
+
+                  
                   
     </script>
 </body>

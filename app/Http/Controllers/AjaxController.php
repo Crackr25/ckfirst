@@ -41,18 +41,56 @@ class AjaxController extends Controller
             $subscriber = DB::table('subcriber')
             ->join('subcriberdetail', 'subcriber.ID', '=', 'subcriberdetail.HEADERID')
             ->where('subcriber.ID', '=', $subscriberId)
-           ->select('subcriber.LASTNAME','subcriber.FIRSTNAME','subcriber.MIDDLENAME', 'subcriberdetail.PHONENO', 'subcriberdetail.PROVIDER')
+           ->select('subcriber.ID','subcriber.LASTNAME','subcriber.FIRSTNAME','subcriber.MIDDLENAME', 'subcriberdetail.PHONENO', 'subcriberdetail.PROVIDER')
             ->get();
             
         if ($subscriber->isNotEmpty()) {
             // Return the data as a JSON response
             return response()->json($subscriber);
-        } else {
-            // Return an error response if no data is found
-            return response()->json(['error' => 'Subscriberss not found.'], 404);
+        // } else {
+        //     // Return an error response if no data is found
+        //     return response()->json(['error' => 'Subscriberss not found.'], 404);
+        // }
         }
     
-    
 }
-    }
+
+
+    public function getNumber(Request $request)
+                {
+                $subscriberId = $request->input('subscriber_id');
+
+                $count = DB::table('subcriberdetail')->where('HEADERID','=',$subscriberId)->count();
+                
+                
+                return response()->json($count);
+                }
+
+
+                public function getName(Request $request)
+                {
+                $subscriberId = $request->input('subscriber_id');
+
+                $name = DB::table('subcriber')->where('ID','=',$subscriberId)->first();
+                
+                
+                return response()->json($name);
+                }
+
+public function saveNum(Request $request)
+                {
+
+                $idNum = $request->input('idNum');
+                $provider = $request->input('provider');
+                $number = $request->input('number');
+
+                    DB::table('subcriberdetail')->insert([
+                        'HEADERID' => $idNum,
+                        'PHONENO' => $number,
+                        'PROVIDER' => $provider
+                    ]);
+                
+                    return response()->json(['message' => 'Data saved successfully']);
+                }
+            }
 

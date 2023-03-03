@@ -27,17 +27,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
 Route::resource('pages', 'PostsController');
 Route::resource('posts', 'PostsController');
 
 Route::get('/ajax-request', 'AjaxController@ajaxRequest');
-Route::post('/get-subscriber', 'AjaxController@getSubscriber')->name('get-subscriber');;
+Route::post('/get-subscriber', 'AjaxController@getSubscriber')->name('get-subscriber');
+Route::post('/get-number',      'AjaxController@getNumber')->name('get-number');
+Route::post('/get-name',      'AjaxController@getName')->name('get-name');
+Route::post('/save-number',      'AjaxController@saveNum')->name('save-number');
 
+Route::post('/pages', [App\Http\Controllers\PostsController::class, 'index'])->name('pages.index');
 
+Route::post('/pages', [App\Http\Controllers\PostsController::class, 'store'])->name('pages.store');
 
-Route::post('/pages', [App\Http\Controllers\PostsController::class, 'index'])->name('posts.index');
-
-Route::post('/posts', [App\Http\Controllers\PostsController::class, 'store'])->name('posts.store');
 
 
 

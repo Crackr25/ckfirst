@@ -16,7 +16,7 @@ class PostsController extends Controller
     public function index()
     {
       
-        $subcriber = DB::table('subcriber')->select('ID', 'lastname', 'firstname', 'middlename', 'gender', 'address')->get();
+        $subcriber = DB::table('subcriber')->select('ID', 'lastname', 'firstname', 'middlename', 'gender', 'address')->where('DELETED','!=', '1')->get();
 
             
         return view('pages.index', ['subcriber' => $subcriber]);

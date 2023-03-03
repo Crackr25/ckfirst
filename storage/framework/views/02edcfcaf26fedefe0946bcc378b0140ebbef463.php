@@ -56,7 +56,7 @@
                     </div>
     
     
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" data-target="#successModal">Submit</button>
                 </form>
             </div>
         </div>
@@ -87,7 +87,7 @@
     
 
     <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
   $('.myForm').submit(function(e) {
     e.preventDefault(); // Prevent form submission from refreshing the page
     var form = $(this);

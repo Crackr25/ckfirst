@@ -62,7 +62,6 @@
         </div>
     </div>
 
-    <?php if(session('success')): ?>
 
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -81,7 +80,6 @@
             </div>
         </div>
     </div>
-<?php endif; ?>
 
     
     
@@ -90,6 +88,7 @@
     $(document).ready(function() {
   $('.myForm').submit(function(e) {
     e.preventDefault(); // Prevent form submission from refreshing the page
+    $('#successModal').modal('show');
     var form = $(this);
     var url = form.attr('action');
     var method = form.attr('method');
@@ -99,7 +98,7 @@
       method: method,
       data: data,
       success: function(response) {
-        console.log(response);
+        $('#successModal').modal('show');
       },
       error: function(xhr) {
         console.log(xhr.responseText);

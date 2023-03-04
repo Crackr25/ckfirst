@@ -108,6 +108,8 @@
             </tbody>
         </table>
       </div>
+
+      
        
         
         
@@ -165,15 +167,14 @@
                   </table>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary float-right" id="Edit">Edit</button>
-                <button type="button" class="btn btn-primary" id="addSubscriber">Add</button>
-                <button type="button" class="btn btn-primary" id="addNumber">Save</button>
-                <button type="button" class="btn btn-primary" id="updateNumber">Update</button>
-                <button type="button" class="btn btn-danger" id="delNumber">Delete</button>
-               
-                
-
-              </div>
+                <button type="button" class="btn btn-primary btn-sm float-right" id="Edit" data.toggle="tooltip" data placement top ="top" title ="Edit Subscribers Details"><i class="fas fa-pencil-alt"></i></button>
+                <button type="button" class="btn btn-danger btn-sm" id="delNumber" data.toggle="tooltip" data placement top ="top" title ="Delete Subscriber"> <i class="fas fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-primary btn-sm" id="addSubscriber" data.toggle="tooltip" data placement top ="top" title ="Add New Number"><i class="fas fa-plus"></i></button>
+                <button type="button" class="btn btn-primary btn-sm" id="addNumber" data.toggle="tooltip" data placement top ="top" title ="Save Number Added"><i class="fas fa-save"></i></button>
+                <button type="button" class="btn btn-primary btn-sm" id="updateNumber" data.toggle="tooltip" data placement top ="top" title ="Save Changes"><i class="fas fa-edit"></i></button>
+           
+            </div>
+            
           </div>
       </div>
   </div>
@@ -252,13 +253,31 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-wIMiPlSAxwo+IwvL8WfKnNTCgdI1jK45vYhHdYPMq3qT0jV7odw0EILiV8jK90LLFzjfOeO/kNIdZ9QimcCjtw==" crossorigin="anonymous" />
+
+      <!-- Add this to the bottom of your layout file, just before the closing body tag -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-2vco9+NpU6VvUahv61-Y8HjKbOQytdKmmNUh+IBW8CxuO+olUk7VvY/+6W+i8+OCv0x0eixpEhBMY+AmgiVv9A==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js" integrity="sha512-qdZ/9FZpZZTJvVuqpF+UpwMfzj+JGmHGtiQcd2nmtnZs+9e1hAW1TUDTsyTlKcTFLH+cbayJbAfrvQ2sZsdc9Q==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js" integrity="sha512-zCfI/+vZhLVnFkjsGzlRyIcpr8n5a5q5nZzX2byWcV8Kv2xPUeV7HmDYiWU6BTKu6KXdzVlmYX6bK8WNU0DfhQ==" crossorigin="anonymous"></script>
 
     <script>
       const searchInput = document.querySelector('#searchInput');
       const searchButton = document.querySelector('#searchButton');
       const tableRows = document.querySelectorAll('#subscribersTable tbody tr');
-    
-    
+
+      searchInput.addEventListener('input', () => {
+  const searchTerm = searchInput.value.toLowerCase();
+  
+  tableRows.forEach(row => {
+    const rowText = row.textContent.toLowerCase();
+    if (rowText.includes(searchTerm)) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+});
+
       searchButton.addEventListener('click', () => {
         const searchTerm = searchInput.value.toLowerCase();
     
@@ -272,6 +291,20 @@
         });
       });
 
+
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+
+
+
+
+
+    
+    
+  
 
 
 
@@ -324,7 +357,7 @@
                 console.log(data)
                 var modalBody = $('#myModal .modal-body');
                 modalBody.empty();
-                var name = data.LASTNAME + ', ' + data.FIRSTNAME + ' ' + data.MIDDLENAME;
+                var name = data.LASTNAME + ', ' + data.FIRSTNAME;
                 var ID = data.ID;
                 var tableHtml = `
     
@@ -381,7 +414,7 @@
             var subscriber = data[0];
 
 // Build the name string
-          var name = subscriber.LASTNAME + ', ' + subscriber.FIRSTNAME + ',' + subscriber.MIDDLENAME;
+          var name = subscriber.LASTNAME + ', ' + subscriber.FIRSTNAME;
           var ID = subscriber.ID;
           // Build the provider and phone number HTML
           var providerHtml = `<td>${subscriber.PROVIDER}</td>`;
@@ -449,7 +482,7 @@
         // Add an event listener to the table row element
 var tableHtml = `
     <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
-        <span id="idNum">${ID}.</span> ${name}
+        <span id="idNum" >${ID}.</span> ${name}
     </p>
     <table class="table table-striped">
         <thead>
@@ -471,7 +504,7 @@ for (var i = 0; i < data.length; i++) {
     continue;
   }
     var rowHtml = `
-      <tr class="clickable-row" data-href="/subscriber/${id}" data-id="${id}">
+      <tr class="clickable-row"  data-href="/subscriber/${id}" data-id="${id}">
         <td><input type="text" class="form-control form-control-plaintext" readonly value="${id}" style="border: none; background-color: transparent; box-shadow: none;"></td>
       <td><input type="text" class="form-control form-control-plaintext" value="${provider}"></td>
       <td><input type="text" class="form-control form-control-plaintext" value="${phone}"></td>

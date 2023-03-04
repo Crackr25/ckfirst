@@ -110,6 +110,8 @@
             </tbody>
         </table>
       </div>
+
+      
        
         
         
@@ -186,15 +188,14 @@
                   </table>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary float-right" id="Edit">Edit</button>
-                <button type="button" class="btn btn-primary" id="addSubscriber">Add</button>
-                <button type="button" class="btn btn-primary" id="addNumber">Save</button>
-                <button type="button" class="btn btn-primary" id="updateNumber">Update</button>
-                <button type="button" class="btn btn-danger" id="delNumber">Delete</button>
-               
-                
-
-              </div>
+                <button type="button" class="btn btn-primary btn-sm float-right" id="Edit" data.toggle="tooltip" data placement top ="top" title ="Edit Subscribers Details"><i class="fas fa-pencil-alt"></i></button>
+                <button type="button" class="btn btn-danger btn-sm" id="delNumber" data.toggle="tooltip" data placement top ="top" title ="Delete Subscriber"> <i class="fas fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-primary btn-sm" id="addSubscriber" data.toggle="tooltip" data placement top ="top" title ="Add New Number"><i class="fas fa-plus"></i></button>
+                <button type="button" class="btn btn-primary btn-sm" id="addNumber" data.toggle="tooltip" data placement top ="top" title ="Save Number Added"><i class="fas fa-save"></i></button>
+                <button type="button" class="btn btn-primary btn-sm" id="updateNumber" data.toggle="tooltip" data placement top ="top" title ="Save Changes"><i class="fas fa-edit"></i></button>
+           
+            </div>
+            
           </div>
       </div>
   </div>
@@ -246,40 +247,36 @@
 </div>
 
     
-  
-
-
-   
-
-
-    <div class="overlay"></div>
-      <!-- Javascript -->
-      {{-- <script src="assets/js/jquery-1.11.1.min.js"></script> --}}
-      {{-- <script src="assets/bootstrap/js/bootstrap.min.js"></script> --}}
-      {{-- <script src="assets/js/jquery.backstretch.min.js"></script> --}}
-      <script src="{{ asset('Jquery/scripts.js') }}"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      
- <!--[if lt IE 10]>
-     <script src="assets/js/placeholder.js"></script>
- <![endif]-->
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
+          <script src="{{ asset('Jquery/scripts.js') }}"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+          <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-wIMiPlSAxwo+IwvL8WfKnNTCgdI1jK45vYhHdYPMq3qT0jV7odw0EILiV8jK90LLFzjfOeO/kNIdZ9QimcCjtw==" crossorigin="anonymous" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-2vco9+NpU6VvUahv61-Y8HjKbOQytdKmmNUh+IBW8CxuO+olUk7VvY/+6W+i8+OCv0x0eixpEhBMY+AmgiVv9A==" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js" integrity="sha512-qdZ/9FZpZZTJvVuqpF+UpwMfzj+JGmHGtiQcd2nmtnZs+9e1hAW1TUDTsyTlKcTFLH+cbayJbAfrvQ2sZsdc9Q==" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js" integrity="sha512-zCfI/+vZhLVnFkjsGzlRyIcpr8n5a5q5nZzX2byWcV8Kv2xPUeV7HmDYiWU6BTKu6KXdzVlmYX6bK8WNU0DfhQ==" crossorigin="anonymous"></script>
 
     <script>
       const searchInput = document.querySelector('#searchInput');
       const searchButton = document.querySelector('#searchButton');
       const tableRows = document.querySelectorAll('#subscribersTable tbody tr');
-    
-    
+
+      searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+  
+        tableRows.forEach(row => {
+          const rowText = row.textContent.toLowerCase();
+          if (rowText.includes(searchTerm)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+
       searchButton.addEventListener('click', () => {
         const searchTerm = searchInput.value.toLowerCase();
     
@@ -294,16 +291,13 @@
       });
 
 
-
-
-</script>
-
-
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+   </script>
 
     <script> 
 
-
-  
         const inputFields = document.querySelectorAll('input.form-control form-control-plaintext');
         $(document).ready(function () {
 
@@ -345,7 +339,7 @@
                 console.log(data)
                 var modalBody = $('#myModal .modal-body');
                 modalBody.empty();
-                var name = data.LASTNAME + ', ' + data.FIRSTNAME + ' ' + data.MIDDLENAME;
+                var name = data.LASTNAME + ', ' + data.FIRSTNAME;
                 var ID = data.ID;
                 var tableHtml = `
     
@@ -364,24 +358,16 @@
           `;
 
           modalBody.html(tableHtml);
+          var providerHtml = `<td>${subscriber.PROVIDER}</td>`;
+          var phoneHtml = `<td>${subscriber.PHONENO}</td>`;          
+              }
 
-
-
-            // Build the provider and phone number HTML
-            var providerHtml = `<td>${subscriber.PROVIDER}</td>`;
-            var phoneHtml = `<td>${subscriber.PHONENO}</td>`;
-
-                
-                
-
-
-
+              });
 
               }
-              
-            });
+
               }
-            }
+
             });
             
          
@@ -402,172 +388,63 @@
             var subscriber = data[0];
 
 // Build the name string
-          var name = subscriber.LASTNAME + ', ' + subscriber.FIRSTNAME + ',' + subscriber.MIDDLENAME;
+          var name = subscriber.LASTNAME + ', ' + subscriber.FIRSTNAME;
           var ID = subscriber.ID;
           // Build the provider and phone number HTML
           var providerHtml = `<td>${subscriber.PROVIDER}</td>`;
           var phoneHtml = `<td>${subscriber.PHONENO}</td>`;
 
-          // Build the table HTML
-      // var tableHtml = `
-      //   <table class="table table-striped">
-      //     <thead>
-      //       <tr>
-      //         <th>Provider</th>
-      //         <th>Phone Number</th>
-      //       </tr>
-      //     </thead>
-      //     <tbody>
-      //       <tr>
+          var tableHtml = `
+              <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
+                  <span id="idNum" >${ID}.</span> ${name}
+              </p>
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Provider</th>
+                          <th>Phone Number</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+          `;
 
-      //         ${providerHtml}
-      //         ${phoneHtml}
-      //       </tr>
-      //     </tbody>
-      //   </table>
-      // `;
-      
-      //       // Build the table HTML
-      //   var modalBodyHtml = `
-      //   <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold ; color: black;">
-      //     ${name}
-      //   </p>
-      //   ${tableHtml}
-      // `;
+          for (var i = 0; i < data.length; i++) {
+              var id = data[i].uid;
+              var provider = data[i].PROVIDER;
+              var phone = data[i].PHONENO;
 
-      // // Set the modal body HTML
-      // modalBody.html(modalBodyHtml);
-
-      // var tableHtml = `
-      //   <table class="table table-striped">
-      //     <thead>
-      //       <tr>
-      //         <th>Provider</th>
-      //         <th>Phone Number</th>
-      //       </tr>
-      //     </thead>
-      //     <tbody>
-      //       <tr>
-      //         ${providerHtml}
-      //         ${phoneHtml}
-      //       </tr>
-      //     </tbody>
-      //   </table>
-      // `;
-
-            // var modalBody = $('#myModal .modal-body');
-        //     modalBody.html(`
-        // <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold ; color: black;">
-        //   ${data.LASTNAME}, ${data.FIRSTNAME} ${data.MIDDLENAME}
-        // </p>
-        // <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
-        //   PROVIDER: ${data.PROVIDER}
-        // </p>
-        // <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
-        //   PHONENO: ${data.PHONENO}
-        // </p>`);
-
-        // Add an event listener to the table row element
-var tableHtml = `
-    <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
-        <span id="idNum">${ID}.</span> ${name}
-    </p>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Provider</th>
-                <th>Phone Number</th>
-            </tr>
-        </thead>
-        <tbody>
-`;
-
-for (var i = 0; i < data.length; i++) {
-    var id = data[i].uid;
-    var provider = data[i].PROVIDER;
-    var phone = data[i].PHONENO;
-
-    if (provider == null || phone == null) {
-    continue;
-  }
-    var rowHtml = `
-      <tr class="clickable-row" data-href="/subscriber/${id}" data-id="${id}">
-        <td><input type="text" class="form-control form-control-plaintext" readonly value="${id}" style="border: none; background-color: transparent; box-shadow: none;"></td>
-      <td><input type="text" class="form-control form-control-plaintext" value="${provider}"></td>
-      <td><input type="text" class="form-control form-control-plaintext" value="${phone}"></td>
-    </tr>
-`;
-if (provider == null || provider === '') {
-    console.log(`Provider is null or empty for row ${i}`);
-  }
-  if (phone == null || phone === '') {
-    console.log(`Phone is null or empty for row ${i}`);
-  }
-    tableHtml += rowHtml;
-}
-
-// tableHtml += `
-//         </tbody>
-//     </table>
-// `;
-
-
-
-    //     var tableHtml = `
-    //     <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
-    //         <span id="idNum">${ID}.</span> ${name}
-    //       </p>
-    //     <table class="table table-striped">
-    //       <thead>
-    //         <tr>
-    //           <th>Provider</th>
-    //           <th>Phone Number</th>
-    //         </tr>
-    //       </thead>
-    //     </tbody>
-    //       `;
-
-    //       for (var i = 0; i < data.length; i++) {
-    //     var provider = data[i].PROVIDER;
-    //     var phone = data[i].PHONENO;
-    //     tableHtml += `
-    //     <tr onclick="getRowId(${id})">
-    //           <td>${provider}</td>
-    //           <td>${phone}</td>
-    //         </tr>
-    //     `;
-    // }
-
-    // tableHtml += `
-    //       </tbody>
-    //     </table>
-    // `;
-    modalBody.html(tableHtml);
-
-
-               //  modalBody.html('<p>' + data.LASTNAME  + '<p>,' + data.FIRSTNAME + '<p>PROVIDER: ' + data.PROVIDER + '<p>PHONENO: ' + data.PHONENO + </P>);  )
-               // // Update the modal body with the subscriber data
-                // var modalBody = $('#myModal.modal-body');
-                // modalBody.empty();
-                // modalBody.append('<p>First Name: ' + data.FIRSTNAME + '</p>');
-                // modalBody.append('<p>Last Name: ' + data.LASTNAME + '</p>');
+              if (provider == null || phone == null) {
+              continue;
+            }
+              var rowHtml = `
+                <tr class="clickable-row"  data-href="/subscriber/${id}" data-id="${id}">
+                  <td><input type="text" class="form-control form-control-plaintext" readonly value="${id}" style="border: none; background-color: transparent; box-shadow: none;"></td>
+                <td><input type="text" class="form-control form-control-plaintext" value="${provider}"></td>
+                <td><input type="text" class="form-control form-control-plaintext" value="${phone}"></td>
+              </tr>
+          `;
+          if (provider == null || provider === '') {
+              console.log(`Provider is null or empty for row ${i}`);
+            }
+            if (phone == null || phone === '') {
+              console.log(`Phone is null or empty for row ${i}`);
+            }
+              tableHtml += rowHtml;
+          }
+         modalBody.html(tableHtml);
             },
-        });
-      });
+            });
+            });
 
-      // Handle the click event of the table row element
+          $('#addSubscriber').click(function() {
+              // Clear the modal body of any previous content
 
-
-         // Function to handle click event on the "Add Subscriber" button
-    $('#addSubscriber').click(function() {
-        // Clear the modal body of any previous content
-
-        // Add two text fields to the modal body for "Provider" and "Number"
-        $('#myModal .modal-body').append('<div class="form-group"><label for="provider">Provider:</label><input type="text" class="form-control" required id="provider"></div><div class="form-group"><label for="number">Number:</label><input type="text" class="form-control" id="number" required></div>');
-        // Show the modal
-        $('#myModal').modal('show');
-    });
+              // Add two text fields to the modal body for "Provider" and "Number"
+              $('#myModal .modal-body').append('<div class="form-group"><label for="provider">Provider:</label><input type="text" class="form-control" required id="provider"></div><div class="form-group"><label for="number">Number:</label><input type="text" class="form-control" id="number" required></div>');
+              // Show the modal
+              $('#myModal').modal('show');
+          });
             $("#sidebar").mCustomScrollbar({
                theme: "minimal"
             });
@@ -596,84 +473,67 @@ if (provider == null || provider === '') {
                 });   
                   });
 
-                  // Get the Edit button element
-const editBtn = document.getElementById("Edit");
+                            // Get the Edit button element
+          const editBtn = document.getElementById("Edit");
 
-// Get the Edit modal element
-const editModal = document.getElementById("editModal");
+          // Get the Edit modal element
+          const editModal = document.getElementById("editModal");
 
-// Create a click listener for the Edit button
-editBtn.addEventListener("click", () => {
-  $('#myModal').modal('hide');
- // location.reload();
-  editModal.style.display = "block";
-  const idNumElement = document.getElementById('idNum');
-  const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
-});
+          // Create a click listener for the Edit button
+          editBtn.addEventListener("click", () => {
+            $('#myModal').modal('hide');
+          // location.reload();
+            editModal.style.display = "block";
+            const idNumElement = document.getElementById('idNum');
+            const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
+          });
 
-// Get the "Save changes" button inside the Edit modal
-const saveChangesBtn = document.getElementById("saveChanges");
+          // Get the "Save changes" button inside the Edit modal
+          const saveChangesBtn = document.getElementById("saveChanges");
 
-// Create a click listener for the "Save changes" button
-saveChangesBtn.addEventListener("click", () => {
-  const idNumElement = document.getElementById('idNum');
-  const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
-  console.log(idNum);
-  editModal.style.display = "none";
-  var firstName = $('#editFirstName').val();
-  var lastName = $('#editLastName').val();
-  var middleName = $('#editEMiddleName').val();
-  var address = $('#editAddress').val();
-  
-    // Disable the form fields again
-    $('#editModal input').prop('disabled', true);
- // location.reload();
-  // console.log('Changes saved:');
-  //   console.log('First name:', $('#editLastName').val());
-  //   console.log('Last name:', $('#editFirstName').val());
-  //   console.log('Middle name:', $('#editEMiddleName').val());
-  //   console.log('Address:', $('#editAddress').val());
+          // Create a click listener for the "Save changes" button
+          saveChangesBtn.addEventListener("click", () => {
+            const idNumElement = document.getElementById('idNum');
+            const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
+            console.log(idNum);
+            editModal.style.display = "none";
+            var firstName = $('#editFirstName').val();
+            var lastName = $('#editLastName').val();
+            var middleName = $('#editEMiddleName').val();
+            var address = $('#editAddress').val();
+            
+              // Disable the form fields again
+              $('#editModal input').prop('disabled', true);
+ 
 
-    $.ajax({
-              url: '/edit-user', // the URL of the server endpoint that will handle the request
-              method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
-              data: { // the data to send to the server
-                  idNum: idNum,
-                  firstName: firstName,
-                  lastName: lastName,
-                  middleName:  middleName ,
-                  address: address
+            $.ajax({
+                      url: '/edit-user', // the URL of the server endpoint that will handle the request
+                      method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
+                      data: { // the data to send to the server
+                          idNum: idNum,
+                          firstName: firstName,
+                          lastName: lastName,
+                          middleName:  middleName ,
+                          address: address
 
-              },
-              success: function(response) {
-                location.reload();
-              },
-              error: function(xhr, status, error) {
-                  console.error('Error saving data:', error);
-              
-              }
-            });
+                      },
+                      success: function(response) {
+                        location.reload();
+                      },
+                      error: function(xhr, status, error) {
+                          console.error('Error saving data:', error);
+                      
+                      }
+                    });
 
+                                        });
 
-
-
-});
-
-// Get the "Cancel" button inside the Edit modal footer
-const cancelBtn = document.querySelector("#editModal .modal-footer button[data-dismiss=modal]");
-
-// Create a click listener for the "Cancel" button
-cancelBtn.addEventListener("click", () => {
-  // Hide the Edit modal
-  editModal.style.display = "none";
-  location.reload();
-});
-
-
-
-          
-
-
+                    // Create a click listener for the "Cancel" button
+                    cancelBtn.addEventListener("click", () => {
+                      // Hide the Edit modal
+                      editModal.style.display = "none";
+                      location.reload();
+                    });
 
           const saveButton = document.getElementById("addNumber");
           // add event listener to the button
@@ -682,18 +542,6 @@ cancelBtn.addEventListener("click", () => {
             const idNumElement = document.getElementById('idNum');
             const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
             const number = $('#number').val();
-          //   var count =0;
-          //   $('table tbody tr').each(function() {
-          //   var provider = $(this).find('td:nth-child(1) input').val();
-          //   var phone = $(this).find('td:nth-child(2) input').val();
-          //   console.log('Provider:', provider, 'Phone:', phone);
-           
-          // });
-      
-            
-            console.log(typeof idNum);
-            console.log(provider);
-            console.log(number);
             $.ajax({
              url: '/save-number', // the URL of the server endpoint that will handle the request
               method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
@@ -711,14 +559,14 @@ cancelBtn.addEventListener("click", () => {
                 }
              });
 
-           $('#myModal').modal('hide');
-           location.reload();
+                $('#myModal').modal('hide');
+                location.reload();
 
          
 
 });
 
-const saveButton1 = document.getElementById("updateNumber");
+       const saveButton1 = document.getElementById("updateNumber");
           // add event listener to the button
            saveButton1.addEventListener("click", function() {
             const provider = $('#provider').val();
@@ -727,7 +575,6 @@ const saveButton1 = document.getElementById("updateNumber");
             const number = $('#number').val();
            
             $('table tbody tr').each(function() {
-         //   var id6 = $(this).find('td:nth-child(1) input').val();
             var uid = $(this).find('td:nth-child(1) input').val();
             var provider = $(this).find('td:nth-child(2) input').val();
             var phone = $(this).find('td:nth-child(3) input').val();
@@ -763,7 +610,7 @@ const saveButton1 = document.getElementById("updateNumber");
 
 
 
-const delButton = document.getElementById("delNumber");
+        const delButton = document.getElementById("delNumber");
           // add event listener to the button
             delButton.addEventListener("click", function() {
             const idNumElement = document.getElementById('idNum');
@@ -787,16 +634,13 @@ const delButton = document.getElementById("delNumber");
               }
             });
             $('#myModal').modal('hide');
-          location.reload();
+            location.reload();
 
-        //  $('#myModal').modal('hide');
-        //   location.reload();
 
          
 
 });
                                 
-    </script>
+</script>
 </body>
-
 </html>

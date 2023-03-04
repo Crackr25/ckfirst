@@ -62,9 +62,7 @@
                         <i class="fas fa-align-left"></i>
                         <span>Home/ Administrator</span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
+                    
                 </div>
             </nav>
 
@@ -137,6 +135,7 @@
         </div>
       </div>
     </div>
+    
 
     <!-- Modal -->
     
@@ -166,14 +165,64 @@
                   </table>
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" id="addSubscriber">Add</button>
-                  <button type="button" class="btn btn-success" id="addNumber">Save</button>
-                  <button type="button" class="btn btn-danger" id="delNumber">Delete</button>
+                <button type="button" class="btn btn-primary float-right" id="Edit">Edit</button>
+                <button type="button" class="btn btn-primary" id="addSubscriber">Add</button>
+                <button type="button" class="btn btn-primary" id="addNumber">Save</button>
+                <button type="button" class="btn btn-primary" id="updateNumber">Update</button>
+                <button type="button" class="btn btn-danger" id="delNumber">Delete</button>
+               
+                
+
               </div>
           </div>
       </div>
   </div>
   
+
+  <!-- Edit button -->
+
+
+
+<!-- Modal for Edit button -->
+<div class="modal" tabindex="-1" role="dialog" id="editModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Contact Information</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Edit contact form goes here -->
+        <form>
+          <div class="form-group">
+            <label for="editName">FIRST NAME</label>
+            <input type="text" class="form-control" id="editFirstName" placeholder="Enter First Name">
+          </div>
+
+       
+          <div class="form-group">
+            <label for="editEmail">LASTNAME</label>
+            <input type="email" class="form-control" id="editLastName" placeholder="Enter Last Name">
+          </div>
+          <div class="form-group">
+            <label for="editPhone">MIDDLENAME</label>
+            <input type="text" class="form-control" id="editMiddleName" placeholder="Enter Middle Name">
+          </div>
+          <div class="form-group">
+            <label for="editPhone">ADDRESS</label>
+            <input type="text" class="form-control" id="editAddress" placeholder="Enter Address">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     
   
@@ -339,22 +388,23 @@
           var phoneHtml = `<td>${subscriber.PHONENO}</td>`;
 
           // Build the table HTML
-      var tableHtml = `
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Provider</th>
-              <th>Phone Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              ${providerHtml}
-              ${phoneHtml}
-            </tr>
-          </tbody>
-        </table>
-      `;
+      // var tableHtml = `
+      //   <table class="table table-striped">
+      //     <thead>
+      //       <tr>
+      //         <th>Provider</th>
+      //         <th>Phone Number</th>
+      //       </tr>
+      //     </thead>
+      //     <tbody>
+      //       <tr>
+
+      //         ${providerHtml}
+      //         ${phoneHtml}
+      //       </tr>
+      //     </tbody>
+      //   </table>
+      // `;
       
       //       // Build the table HTML
       //   var modalBodyHtml = `
@@ -404,6 +454,7 @@ var tableHtml = `
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Provider</th>
                 <th>Phone Number</th>
             </tr>
@@ -415,13 +466,23 @@ for (var i = 0; i < data.length; i++) {
     var id = data[i].uid;
     var provider = data[i].PROVIDER;
     var phone = data[i].PHONENO;
+
+    if (provider == null || phone == null) {
+    continue;
+  }
     var rowHtml = `
       <tr class="clickable-row" data-href="/subscriber/${id}" data-id="${id}">
+        <td><input type="text" class="form-control form-control-plaintext" readonly value="${id}" style="border: none; background-color: transparent; box-shadow: none;"></td>
       <td><input type="text" class="form-control form-control-plaintext" value="${provider}"></td>
       <td><input type="text" class="form-control form-control-plaintext" value="${phone}"></td>
     </tr>
 `;
-
+if (provider == null || provider === '') {
+    console.log(`Provider is null or empty for row ${i}`);
+  }
+  if (phone == null || phone === '') {
+    console.log(`Phone is null or empty for row ${i}`);
+  }
     tableHtml += rowHtml;
 }
 
@@ -514,6 +575,81 @@ for (var i = 0; i < data.length; i++) {
                 });   
                   });
 
+                  // Get the Edit button element
+const editBtn = document.getElementById("Edit");
+
+// Get the Edit modal element
+const editModal = document.getElementById("editModal");
+
+// Create a click listener for the Edit button
+editBtn.addEventListener("click", () => {
+  $('#myModal').modal('hide');
+ // location.reload();
+  editModal.style.display = "block";
+  const idNumElement = document.getElementById('idNum');
+  const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
+});
+
+// Get the "Save changes" button inside the Edit modal
+const saveChangesBtn = document.getElementById("saveChanges");
+
+// Create a click listener for the "Save changes" button
+saveChangesBtn.addEventListener("click", () => {
+  const idNumElement = document.getElementById('idNum');
+  const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
+  console.log(idNum);
+  editModal.style.display = "none";
+  var firstName = $('#editFirstName').val();
+  var lastName = $('#editLastName').val();
+  var middleName = $('#editEMiddleName').val();
+  var address = $('#editAddress').val();
+  
+    // Disable the form fields again
+    $('#editModal input').prop('disabled', true);
+ // location.reload();
+  // console.log('Changes saved:');
+  //   console.log('First name:', $('#editLastName').val());
+  //   console.log('Last name:', $('#editFirstName').val());
+  //   console.log('Middle name:', $('#editEMiddleName').val());
+  //   console.log('Address:', $('#editAddress').val());
+
+    $.ajax({
+              url: '/edit-user', // the URL of the server endpoint that will handle the request
+              method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
+              data: { // the data to send to the server
+                  idNum: idNum,
+                  firstName: firstName,
+                  lastName: lastName,
+                  middleName:  middleName ,
+                  address: address
+
+              },
+              success: function(response) {
+                location.reload();
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error saving data:', error);
+              
+              }
+            });
+
+
+
+
+});
+
+// Get the "Cancel" button inside the Edit modal footer
+const cancelBtn = document.querySelector("#editModal .modal-footer button[data-dismiss=modal]");
+
+// Create a click listener for the "Cancel" button
+cancelBtn.addEventListener("click", () => {
+  // Hide the Edit modal
+  editModal.style.display = "none";
+  location.reload();
+});
+
+
+
           
 
 
@@ -525,34 +661,85 @@ for (var i = 0; i < data.length; i++) {
             const idNumElement = document.getElementById('idNum');
             const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
             const number = $('#number').val();
-
+          //   var count =0;
+          //   $('table tbody tr').each(function() {
+          //   var provider = $(this).find('td:nth-child(1) input').val();
+          //   var phone = $(this).find('td:nth-child(2) input').val();
+          //   console.log('Provider:', provider, 'Phone:', phone);
+           
+          // });
+      
             
-            // console.log(typeof idNum);
-            // console.log(provider);
-            // console.log(number);
-        //      $.ajax({
-        //       url: '/save-number', // the URL of the server endpoint that will handle the request
-        //      method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
-        //       data: { // the data to send to the server
-        //           idNum: idNum,
-        //           provider: provider,
-        //            number: number
-        //        },
-        //        success: function(response) {
-        //            console.log('Data saved successfully:', response);
-        //        },
-        //        error: function(xhr, status, error) {
-        //            console.error('Error saving data:', error);
+            console.log(typeof idNum);
+            console.log(provider);
+            console.log(number);
+            $.ajax({
+             url: '/save-number', // the URL of the server endpoint that will handle the request
+              method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
+               data: { // the data to send to the server
+                   idNum: idNum,
+                  provider: provider,
+                     number: number
+                },
+                 success: function(response) {
+                     console.log('Data saved successfully:', response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error saving data:', error);
               
-        //        }
-        //      });
+                }
+             });
 
-        //  $('#myModal').modal('hide');
-        //   location.reload();
+           $('#myModal').modal('hide');
+           location.reload();
 
          
 
 });
+
+const saveButton1 = document.getElementById("updateNumber");
+          // add event listener to the button
+           saveButton1.addEventListener("click", function() {
+            const provider = $('#provider').val();
+            const idNumElement = document.getElementById('idNum');
+            const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
+            const number = $('#number').val();
+           
+            $('table tbody tr').each(function() {
+         //   var id6 = $(this).find('td:nth-child(1) input').val();
+            var uid = $(this).find('td:nth-child(1) input').val();
+            var provider = $(this).find('td:nth-child(2) input').val();
+            var phone = $(this).find('td:nth-child(3) input').val();
+          
+
+            if (typeof provider !== 'undefined' && provider !== '' && typeof phone !== 'undefined' && phone !== '') {
+    
+              $.ajax({
+              url: '/edit-number', // the URL of the server endpoint that will handle the request
+              method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
+              data: { // the data to send to the server
+                  idNum: idNum,
+                  provider: provider,
+                  phone: phone,
+                  uid: uid
+              },
+              success: function(response) {
+                  console.log('Data saved successfully:', response);
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error saving data:', error);
+              
+              }
+            });
+          }
+          });
+
+
+        
+          });
+        
+
+
 
 
 const delButton = document.getElementById("delNumber");

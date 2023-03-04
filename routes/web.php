@@ -40,6 +40,8 @@ Route::post('/get-number',      'AjaxController@getNumber')->name('get-number');
 Route::post('/get-name',      'AjaxController@getName')->name('get-name');
 Route::post('/save-number',      'AjaxController@saveNum')->name('save-number');
 Route::post('/del-user',      'AjaxController@delUser')->name('del-user');
+Route::post('/edit-user',      'AjaxController@editUser')->name('edit-user');
+Route::post('/edit-number', 'AjaxController@editNum')->name('edit-number');
 
 Route::post('/pages', [App\Http\Controllers\PostsController::class, 'index'])->name('pages.index');
 

@@ -100,7 +100,51 @@ public function delUser(Request $request)
                   
                 $affected = DB::table('subcriber')
                 ->where('ID', $idNum )
-                ->update(['DELETED' => 1]);
+                ->update([
+                    'DELETED' => 1]);
+                
+                    return response()->json(['message' => 'Data saved successfully']);
+                }
+
+public function editUser(Request $request)
+                {
+
+
+                $idNum = $request->input('idNum');
+                $firstName =  $request->input('firstName'); 
+                $lastName =  $request->input('lastName');
+                $middleName = $request->input('middleName'); 
+                $address = $request->input('address');
+                
+                
+                $edit = DB::table('subcriber')
+                ->where('ID', $idNum )
+                ->update([
+                    'LASTNAME' =>  $lastName,
+                    'FIRSTNAME' => $firstName,
+                    'MIDDLENAME'=>  $middleName,
+                    'UPDATEDATETIME' => now(),
+                    'ADDRESS'=> $address 
+                ]);
+                
+                    return response()->json(['message' => 'Data saved successfully']);
+                }
+
+public function editNum(Request $request)
+                {
+
+                $idNum = $request->input('idNum');
+                $provider =  $request->input('provider'); 
+                $phone =  $request->input('phone');
+                $uid = $request->input('uid'); 
+                
+                $edit = DB::table('subcriberdetail')
+                ->where('ID', $uid )
+                ->update([
+                    'HEADERID' =>  $idNum,
+                    'PROVIDER' => $provider,
+                    'PHONENO'=>  $phone,
+                ]);
                 
                     return response()->json(['message' => 'Data saved successfully']);
                 }

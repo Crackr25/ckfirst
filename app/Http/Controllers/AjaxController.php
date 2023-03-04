@@ -41,7 +41,7 @@ class AjaxController extends Controller
             $subscriber = DB::table('subcriber')
             ->join('subcriberdetail', 'subcriber.ID', '=', 'subcriberdetail.HEADERID')
             ->where('subcriber.ID', '=', $subscriberId)
-           ->select('subcriber.ID','subcriber.LASTNAME','subcriber.FIRSTNAME','subcriber.MIDDLENAME', 'subcriberdetail.PHONENO', 'subcriberdetail.PROVIDER')
+           ->select('subcriber.ID','subcriber.LASTNAME','subcriber.FIRSTNAME','subcriber.MIDDLENAME', 'subcriberdetail.PHONENO', 'subcriberdetail.PROVIDER', 'subcriberdetail.ID as uid')
             ->get();
             
         if ($subscriber->isNotEmpty()) {
@@ -92,5 +92,18 @@ public function saveNum(Request $request)
                 
                     return response()->json(['message' => 'Data saved successfully']);
                 }
+
+public function delUser(Request $request)
+                {
+
+                $idNum = $request->input('idNum');
+                  
+                $affected = DB::table('subcriber')
+                ->where('ID', $idNum )
+                ->update(['DELETED' => 1]);
+                
+                    return response()->json(['message' => 'Data saved successfully']);
+                }
+
             }
 

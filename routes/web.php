@@ -39,6 +39,7 @@ Route::post('/get-subscriber', 'AjaxController@getSubscriber')->name('get-subscr
 Route::post('/get-number',      'AjaxController@getNumber')->name('get-number');
 Route::post('/get-name',      'AjaxController@getName')->name('get-name');
 Route::post('/save-number',      'AjaxController@saveNum')->name('save-number');
+Route::post('/del-user',      'AjaxController@delUser')->name('del-user');
 
 Route::post('/pages', [App\Http\Controllers\PostsController::class, 'index'])->name('pages.index');
 

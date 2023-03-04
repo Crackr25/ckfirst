@@ -95,7 +95,7 @@
                    
                 </tr>
             </thead>
-            <tbody>subscriberId
+            <tbody>
                 <?php $__currentLoopData = $subcriber; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr data-id="<?php echo e($item->ID); ?>">
                       <td><?php echo e($item->ID); ?></td>
@@ -152,6 +152,8 @@
               </div>
               <div class="modal-body">
                   <p><strong>Name:</strong> <span id="subscriberName"></span></p>
+                 
+                  <table class="table table-striped table-hover" id="subscribersTable2">
                   <table class="table">
                       <thead>
                           <tr>
@@ -166,15 +168,12 @@
               <div class="modal-footer">
                   <button type="button" class="btn btn-primary" id="addSubscriber">Add</button>
                   <button type="button" class="btn btn-success" id="addNumber">Save</button>
-                  <button type="button" class="btn btn-danger">Delete</button>
+                  <button type="button" class="btn btn-danger" id="delNumber">Delete</button>
               </div>
           </div>
       </div>
   </div>
   
-  <?php if(session('success')): ?>
-  <div class="alert alert-success"><?php echo e(session('success')); ?></div>
-<?php endif; ?>
 
     
   
@@ -210,6 +209,7 @@
       const searchButton = document.querySelector('#searchButton');
       const tableRows = document.querySelectorAll('#subscribersTable tbody tr');
     
+    
       searchButton.addEventListener('click', () => {
         const searchTerm = searchInput.value.toLowerCase();
     
@@ -231,20 +231,25 @@
 
 
     <script> 
-  
 
+
+  
+        const inputFields = document.querySelectorAll('input.form-control form-control-plaintext');
         $(document).ready(function () {
 
+
+        inputFields.forEach(function(input) {
+        input.addEventListener('click', function(event) {
+        const value = event.target.value;
+        console.log(value);
+          });
+        });
+
           $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-      var conts  = 0;
-
-
-          
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
 
           $('#subscribersTable tbody').on('click', 'tr', function() {
             var subscriberId = $(this).find('td:first-child').text();
@@ -322,6 +327,7 @@
           
             var modalBody = $('#myModal .modal-body');
             modalBody.empty();
+            console.log(data);
            // Get the first item from the array
             var subscriber = data[0];
 
@@ -389,35 +395,72 @@
         // <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
         //   PHONENO: ${data.PHONENO}
         // </p>`);
-        var tableHtml = `
-        <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
-            <span id="idNum">${ID}.</span> ${name}
-          </p>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Provider</th>
-              <th>Phone Number</th>
-            </tr>
-          </thead>
-        </tbody>
-          `;
 
-          for (var i = 0; i < data.length; i++) {
-        var provider = data[i].PROVIDER;
-        var phone = data[i].PHONENO;
-        tableHtml += `
+        // Add an event listener to the table row element
+var tableHtml = `
+    <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
+        <span id="idNum">${ID}.</span> ${name}
+    </p>
+    <table class="table table-striped">
+        <thead>
             <tr>
-              <td>${provider}</td>
-              <td>${phone}</td>
+                <th>Provider</th>
+                <th>Phone Number</th>
             </tr>
-        `;
-    }
+        </thead>
+        <tbody>
+`;
 
-    tableHtml += `
-          </tbody>
-        </table>
-    `;
+for (var i = 0; i < data.length; i++) {
+    var id = data[i].uid;
+    var provider = data[i].PROVIDER;
+    var phone = data[i].PHONENO;
+    var rowHtml = `
+      <tr class="clickable-row" data-href="/subscriber/${id}" data-id="${id}">
+      <td><input type="text" class="form-control form-control-plaintext" value="${provider}"></td>
+      <td><input type="text" class="form-control form-control-plaintext" value="${phone}"></td>
+    </tr>
+`;
+
+    tableHtml += rowHtml;
+}
+
+// tableHtml += `
+//         </tbody>
+//     </table>
+// `;
+
+
+
+    //     var tableHtml = `
+    //     <p style="margin: 0.5rem 0; font-size: 1.2rem; font-weight: bold; color: black;">
+    //         <span id="idNum">${ID}.</span> ${name}
+    //       </p>
+    //     <table class="table table-striped">
+    //       <thead>
+    //         <tr>
+    //           <th>Provider</th>
+    //           <th>Phone Number</th>
+    //         </tr>
+    //       </thead>
+    //     </tbody>
+    //       `;
+
+    //       for (var i = 0; i < data.length; i++) {
+    //     var provider = data[i].PROVIDER;
+    //     var phone = data[i].PHONENO;
+    //     tableHtml += `
+    //     <tr onclick="getRowId(${id})">
+    //           <td>${provider}</td>
+    //           <td>${phone}</td>
+    //         </tr>
+    //     `;
+    // }
+
+    // tableHtml += `
+    //       </tbody>
+    //     </table>
+    // `;
     modalBody.html(tableHtml);
 
 
@@ -431,6 +474,9 @@
         });
       });
 
+      // Handle the click event of the table row element
+
+
          // Function to handle click event on the "Add Subscriber" button
     $('#addSubscriber').click(function() {
         // Clear the modal body of any previous content
@@ -440,8 +486,6 @@
         // Show the modal
         $('#myModal').modal('show');
     });
-
-
             $("#sidebar").mCustomScrollbar({
                theme: "minimal"
             });
@@ -470,6 +514,10 @@
                 });   
                   });
 
+          
+
+
+
           const saveButton = document.getElementById("addNumber");
           // add event listener to the button
           saveButton.addEventListener("click", function() {
@@ -477,16 +525,50 @@
             const idNumElement = document.getElementById('idNum');
             const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
             const number = $('#number').val();
+
+            
             // console.log(typeof idNum);
             // console.log(provider);
             // console.log(number);
-            $.ajax({
-              url: '/save-number', // the URL of the server endpoint that will handle the request
+        //      $.ajax({
+        //       url: '/save-number', // the URL of the server endpoint that will handle the request
+        //      method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
+        //       data: { // the data to send to the server
+        //           idNum: idNum,
+        //           provider: provider,
+        //            number: number
+        //        },
+        //        success: function(response) {
+        //            console.log('Data saved successfully:', response);
+        //        },
+        //        error: function(xhr, status, error) {
+        //            console.error('Error saving data:', error);
+              
+        //        }
+        //      });
+
+        //  $('#myModal').modal('hide');
+        //   location.reload();
+
+         
+
+});
+
+
+const delButton = document.getElementById("delNumber");
+          // add event listener to the button
+            delButton.addEventListener("click", function() {
+            const idNumElement = document.getElementById('idNum');
+            const idNum = Number(idNumElement.textContent.trim().slice(0, -1));
+           
+            console.log(idNum);
+            // console.log(provider);
+            // console.log(number);
+         $.ajax({
+              url: '/del-user', // the URL of the server endpoint that will handle the request
               method: 'POST', // the HTTP method to use (e.g. GET, POST, PUT, DELETE)
               data: { // the data to send to the server
-                  idNum: idNum,
-                  provider: provider,
-                  number: number
+                  idNum: idNum
               },
               success: function(response) {
                   console.log('Data saved successfully:', response);
@@ -496,12 +578,16 @@
               
               }
             });
+            $('#myModal').modal('hide');
+          location.reload();
 
-        //    $('#myModal').modal('hide');
+        //  $('#myModal').modal('hide');
+        //   location.reload();
+
+         
+
 });
-
-                  
-                  
+                                
     </script>
 </body>
 

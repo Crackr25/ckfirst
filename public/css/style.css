@@ -24,6 +24,12 @@ p {
 .modal-body p:first-child {
     font-weight: bold;
   }
+
+.phone-cell {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
   
 
 a,
